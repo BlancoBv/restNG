@@ -1,6 +1,6 @@
 import express from "express";
 import "dotenv/config";
-import indexRoutes from "../src/routes/indexRoutes";
+import indexRoutes from "./routes/indexRoutes";
 import bodyParser from "body-parser";
 import cors from "cors";
 import morgan from "morgan";
