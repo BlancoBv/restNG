@@ -1,0 +1,20 @@
+{
+  "compilerOptions": {
+    "target": "es2020",
+    "module": "commonjs",
+    "rootDir": "./src",
+    "outDir": "./dist",
+    "esModuleInterop": true,
+    "strict": true
+  },
+  "paths": {
+    "@routes/*": ["./src/routes/*"],
+    "@controllers/*": ["./src/controllers/*"],
+    "@models/*": ["./src/models/*"],
+    "@middlewares/*": ["./src/middlewares/*"],
+    "@config/*": ["./src/config/*"],
+    "@services/*": ["./src/services/*"],
+    "@utils/*": ["./src/utils/*"],
+    "@seeders/*": ["./src/seeders/*"]
+  }
+}
