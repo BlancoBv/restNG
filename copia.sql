@@ -24,19 +24,16 @@ DROP TABLE IF EXISTS `carritos`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `carritos` (
   `idcarritos` int NOT NULL AUTO_INCREMENT,
-  `num_tel` int NOT NULL,
+  `num_tel` varchar(10) NOT NULL,
   `entregado` tinyint NOT NULL,
-  `producto_idproducto` int NOT NULL,
-  `total` decimal(3,2) NOT NULL,
-  `autorizadoPor` int DEFAULT NULL,
+  `total` decimal(10,2) NOT NULL,
   `createdAt` datetime NOT NULL,
   `updatedAt` datetime NOT NULL,
-  PRIMARY KEY (`idcarritos`),
-  KEY `fk_carritos_producto1_idx` (`producto_idproducto`),
-  KEY `fk_carritos_usuarios1_idx` (`autorizadoPor`),
-  CONSTRAINT `fk_carritos_producto1` FOREIGN KEY (`producto_idproducto`) REFERENCES `productos` (`idproducto`),
-  CONSTRAINT `fk_carritos_usuarios1` FOREIGN KEY (`autorizadoPor`) REFERENCES `usuarios` (`idusuario`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+  `autorizadoPor` int DEFAULT NULL,
+  `productos` longtext NOT NULL,
+  `cantidad` varchar(45) NOT NULL,
+  PRIMARY KEY (`idcarritos`)
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -45,6 +42,7 @@ CREATE TABLE `carritos` (
 
 LOCK TABLES `carritos` WRITE;
 /*!40000 ALTER TABLE `carritos` DISABLE KEYS */;
+INSERT INTO `carritos` VALUES (1,'9341126289',1,90.00,'2024-05-14 16:05:21','2024-05-14 16:21:32',2,'[1,1]','2'),(2,'9341126289',0,90.00,'2024-05-14 16:08:27','2024-05-14 16:08:27',NULL,'[1,1]','2'),(3,'9341126289',0,90.00,'2024-05-14 16:08:30','2024-05-14 16:08:30',NULL,'[1,1]','2'),(4,'9341126289',0,90.00,'2024-05-14 16:08:31','2024-05-14 16:08:31',NULL,'[1,1]','2'),(5,'9341126289',0,90.00,'2024-05-14 16:08:32','2024-05-14 16:08:32',NULL,'[1,1]','2');
 /*!40000 ALTER TABLE `carritos` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -89,10 +87,11 @@ CREATE TABLE `productos` (
   `existencias` int NOT NULL,
   `createdAt` datetime NOT NULL,
   `updatedAt` datetime NOT NULL,
+  `img` longtext NOT NULL,
   PRIMARY KEY (`idproducto`),
   KEY `fk_producto_categoria1_idx` (`idcategoria`),
   CONSTRAINT `fk_producto_categoria1` FOREIGN KEY (`idcategoria`) REFERENCES `categorias` (`idcategoria`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -101,6 +100,7 @@ CREATE TABLE `productos` (
 
 LOCK TABLES `productos` WRITE;
 /*!40000 ALTER TABLE `productos` DISABLE KEYS */;
+INSERT INTO `productos` VALUES (1,'Totis donitas, limon y sal',5.00,3,0,'2024-05-14 15:20:26','2024-05-14 16:08:32','https://www.totis.com.mx/wp-content/uploads/2021/08/donitas-limon-sal-totis-003.png'),(2,'Totis queso',5.00,2,24,'2024-05-15 00:06:40','2024-05-15 00:06:40','https://www.totis.com.mx/wp-content/uploads/2021/08/quetotis-queso-cheddar-totis-003.png');
 /*!40000 ALTER TABLE `productos` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -140,4 +140,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2024-05-13 18:43:59
+-- Dump completed on 2024-05-14 20:19:52
