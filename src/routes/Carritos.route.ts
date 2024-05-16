@@ -2,6 +2,7 @@ import { Router } from "express";
 import Controller from "../controller/Controller";
 import Carritos from "../models/Carritos";
 import Productos from "../models/Productos";
+import { verifyAuth } from "../middleware/auth";
 
 const router = Router();
 
@@ -58,8 +59,6 @@ class ControllerCarritos extends Controller {
     } catch (error) {
       return res.status(403).json({ success: false, error });
     }
-
-    console.log(body);
   };
 
   autorizarCart = async (req: any, res: any, target: string) => {
@@ -82,7 +81,7 @@ const controller = new ControllerCarritos(Carritos);
 
 router.get("/", controller.obtener);
 router.post("/crear", controller.generateCart);
-router.put("/autorizar/:idcarritos", (req, res) =>
+router.put("/autorizar/:idcarritos", verifyAuth, (req, res) =>
   controller.autorizarCart(req, res, "idcarritos")
 );
 

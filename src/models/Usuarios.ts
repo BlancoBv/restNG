@@ -1,5 +1,7 @@
 import { DataTypes } from "sequelize";
 import sequelize from "../config/db.config";
+// @ts-ignore
+import useBcrypt from "sequelize-bcrypt";
 
 const Usuarios = sequelize.define("usuarios", {
   idusuario: {
@@ -19,6 +21,12 @@ const Usuarios = sequelize.define("usuarios", {
     type: DataTypes.STRING(45),
     allowNull: false,
   },
+});
+
+useBcrypt(Usuarios, {
+  field: "password",
+  rounds: 12,
+  compare: "authenticate",
 });
 
 export default Usuarios;
