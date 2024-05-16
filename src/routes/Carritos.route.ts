@@ -22,14 +22,16 @@ class ControllerCarritos extends Controller {
         }).then((res) => res);
         existencias.push(response);
       }); */
-      for (const id in body.productos) {
+      for (const index in body.productos) {
+        const id = body.productos[index][0].idproducto;
+
+        console.log(body.productos[index][0].length);
+
         const response = await Productos.findOne({
           where: { idproducto: id },
         });
-        if (
-          response?.dataValues.existencias <= 0 ||
-          response?.dataValues.existencias < body.cantidad
-        ) {
+
+        if (response?.dataValues.existencias <= body.productos[index].length) {
           noExistencias = true;
         }
       } //comprueba la existencia de los productos
@@ -40,11 +42,11 @@ class ControllerCarritos extends Controller {
         throw "Algun producto sin existencias";
       }
       //empieza a decrementar las existencias
-      body.productos.forEach(async (id: number) => {
+      body.productos.forEach(async (element: { idproducto: number }[]) => {
         const response = await Productos.findOne({
-          where: { idproducto: id },
+          where: { idproducto: element[0].idproducto },
         });
-        await response?.decrement({ existencias: 1 });
+        await response?.decrement({ existencias: element.length });
       });
 
       const response = await this.modelo.create({
