@@ -72,6 +72,15 @@ class ControllerCarritos extends Controller {
       const response = await this.modelo.findOne({
         where: { [target]: req.params[target] },
       });
+      const productos = JSON.parse(response.dataValues.productos);
+
+      for (const index in productos) {
+        const idproducto = productos[index][0].idproducto;
+
+        const response = await Productos.findOne({ where: { idproducto } });
+        await response?.increment({ existencias: productos[index].length });
+      }
+
       await response.update({
         cancelado: true,
       });

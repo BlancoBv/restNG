@@ -14,7 +14,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cors());
 app.use(
   morgan(
-    ":date[iso] :remote-addr :method :url :status :res[content-length] - :response-time ms"
+    ":remote-addr :method :url :status :res[content-length] :response-time ms"
   )
 );
 app.use(bodyParser.json({ limit: "50mb" }));

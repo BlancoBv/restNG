@@ -43,6 +43,10 @@ const Carritos = sequelize.define("carritos", {
     type: DataTypes.INTEGER,
     allowNull: false,
   },
+  nombreCliente: {
+    type: DataTypes.STRING(100),
+    allowNull: false,
+  },
 });
 
 export default Carritos;
