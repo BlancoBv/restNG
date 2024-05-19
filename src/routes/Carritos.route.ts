@@ -13,31 +13,20 @@ class ControllerCarritos extends Controller {
 
   generateCart = async (req: any, res: any) => {
     const { body } = req;
-    const existencias: any = [];
     let noExistencias = false;
 
     try {
-      /*  body.productos.forEach((id: number) => {
-        const response = Productos.findOne({
-          where: { idproducto: id },
-        }).then((res) => res);
-        existencias.push(response);
-      }); */
       for (const index in body.productos) {
         const id = body.productos[index][0].idproducto;
-
-        console.log(body.productos[index][0].length);
 
         const response = await Productos.findOne({
           where: { idproducto: id },
         });
 
-        if (response?.dataValues.existencias <= body.productos[index].length) {
+        if (response?.dataValues.existencias < body.productos[index].length) {
           noExistencias = true;
         }
       } //comprueba la existencia de los productos
-
-      console.log(existencias);
 
       if (noExistencias) {
         throw "Algun producto sin existencias";
@@ -52,6 +41,9 @@ class ControllerCarritos extends Controller {
 
       const response = await this.modelo.create({
         ...body,
+        autorizadoPor: null,
+        entregado: false,
+        cancelado: false,
         productos: JSON.stringify(body.productos),
       });
 
@@ -75,14 +67,40 @@ class ControllerCarritos extends Controller {
       return res.status(403).json({ success: false, error });
     }
   };
+  cancelarCart = async (req: any, res: any, target: string) => {
+    try {
+      const response = await this.modelo.findOne({
+        where: { [target]: req.params[target] },
+      });
+      await response.update({
+        cancelado: true,
+      });
+      res.status(200).json(response);
+    } catch (error) {
+      return res.status(403).json({ success: false, error });
+    }
+  };
 }
 
 const controller = new ControllerCarritos(Carritos);
 
-router.get("/", controller.obtener);
+router.get("/", (req, res) =>
+  controller.obtener(req, res, {
+    order: [["idcarritos", "DESC"]],
+  })
+);
+router.get("/obtener/:num_tel", (req, res) =>
+  controller.obtener(req, res, {
+    where: { num_tel: req.params.num_tel },
+    order: [["idcarritos", "DESC"]],
+  })
+);
 router.post("/crear", controller.generateCart);
 router.put("/autorizar/:idcarritos", verifyAuth, (req, res) =>
   controller.autorizarCart(req, res, "idcarritos")
+);
+router.put("/cancelar/:idcarritos", verifyAuth, (req, res) =>
+  controller.cancelarCart(req, res, "idcarritos")
 );
 
 export default router;

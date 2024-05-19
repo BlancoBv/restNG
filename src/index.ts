@@ -9,9 +9,14 @@ const app = express();
 const { PORT } = process.env;
 
 app.set("PORT", PORT);
+app.enable("trust proxy");
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cors());
-app.use(morgan("dev"));
+app.use(
+  morgan(
+    ":date[iso] :remote-addr :method :url :status :res[content-length] - :response-time ms"
+  )
+);
 app.use(bodyParser.json({ limit: "50mb" }));
 
 app.get("/", (_req, res) => {

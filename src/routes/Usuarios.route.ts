@@ -34,7 +34,7 @@ class controllerUser extends Controller {
         const token = await signToken(usuario.dataValues);
         return res
           .status(200)
-          .json({ success: true, response: { todo, token } });
+          .json({ success: true, response: { ...todo, token } });
       }
     } catch (error) {
       console.log(error);

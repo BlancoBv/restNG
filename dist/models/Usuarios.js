@@ -5,6 +5,8 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const sequelize_1 = require("sequelize");
 const db_config_1 = __importDefault(require("../config/db.config"));
+// @ts-ignore
+const sequelize_bcrypt_1 = __importDefault(require("sequelize-bcrypt"));
 const Usuarios = db_config_1.default.define("usuarios", {
     idusuario: {
         type: sequelize_1.DataTypes.INTEGER,
@@ -23,5 +25,10 @@ const Usuarios = db_config_1.default.define("usuarios", {
         type: sequelize_1.DataTypes.STRING(45),
         allowNull: false,
     },
+});
+(0, sequelize_bcrypt_1.default)(Usuarios, {
+    field: "password",
+    rounds: 12,
+    compare: "authenticate",
 });
 exports.default = Usuarios;

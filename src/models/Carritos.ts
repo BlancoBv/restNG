@@ -12,7 +12,7 @@ const Carritos = sequelize.define("carritos", {
     allowNull: false,
   },
   entregado: {
-    type: DataTypes.TINYINT,
+    type: DataTypes.BOOLEAN,
     allowNull: false,
   },
   total: {
@@ -28,7 +28,19 @@ const Carritos = sequelize.define("carritos", {
     allowNull: false,
   },
   cantidad: {
-    type: DataTypes.STRING,
+    type: DataTypes.INTEGER,
+    allowNull: false,
+  },
+  lugarEntrega: {
+    type: DataTypes.TEXT("medium"),
+    allowNull: false,
+  },
+  cancelado: {
+    type: DataTypes.BOOLEAN,
+    allowNull: false,
+  },
+  envio: {
+    type: DataTypes.INTEGER,
     allowNull: false,
   },
 });

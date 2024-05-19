@@ -16,7 +16,7 @@ const Carritos = db_config_1.default.define("carritos", {
         allowNull: false,
     },
     entregado: {
-        type: sequelize_1.DataTypes.TINYINT,
+        type: sequelize_1.DataTypes.BOOLEAN,
         allowNull: false,
     },
     total: {
@@ -32,7 +32,19 @@ const Carritos = db_config_1.default.define("carritos", {
         allowNull: false,
     },
     cantidad: {
-        type: sequelize_1.DataTypes.STRING,
+        type: sequelize_1.DataTypes.INTEGER,
+        allowNull: false,
+    },
+    lugarEntrega: {
+        type: sequelize_1.DataTypes.TEXT("medium"),
+        allowNull: false,
+    },
+    cancelado: {
+        type: sequelize_1.DataTypes.BOOLEAN,
+        allowNull: false,
+    },
+    envio: {
+        type: sequelize_1.DataTypes.INTEGER,
         allowNull: false,
     },
 });

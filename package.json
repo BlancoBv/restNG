@@ -4,7 +4,7 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "babel src --extensions \".ts, .js\"  --out-dir build --copy-files",
+    "build": "tsc",
     "dev": "ts-node-dev --respawn --ignore-watch node_modules  ./src/index.ts",
     "deploy": "gh-pages -d dist"
   },
