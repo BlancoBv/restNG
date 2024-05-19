@@ -13,4 +13,5 @@ router.use("/productos", Productos_route_1.default);
 router.use("/categorias", Categorias_route_1.default);
 router.use("/carritos", Carritos_route_1.default);
 router.use("/usuarios", Usuarios_route_1.default);
+router.get("/status", (_req, res) => res.status(200).json({ msg: "Funcionando" }));
 exports.default = router;

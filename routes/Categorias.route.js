@@ -7,10 +7,11 @@ const express_1 = require("express");
 const Controller_1 = __importDefault(require("../controller/Controller"));
 const Categorias_1 = __importDefault(require("../models/Categorias"));
 const Productos_1 = __importDefault(require("../models/Productos"));
+const auth_1 = require("../middleware/auth");
 const router = (0, express_1.Router)();
 const controller = new Controller_1.default(Categorias_1.default);
 router.get("/", controller.obtener);
-router.post("/crear", controller.insertar);
+router.post("/crear", auth_1.verifyAuth, controller.insertar);
 router.get("/obtener/:idcategoria", (req, res) => controller.obtener(req, res, {
     where: { idcategoria: req.params.idcategoria },
     include: [Productos_1.default],
