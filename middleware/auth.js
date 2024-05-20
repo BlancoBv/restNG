@@ -28,8 +28,6 @@ const verifyAuth = async (req, res, next) => {
 };
 exports.verifyAuth = verifyAuth;
 const signToken = async (data) => {
-    return await jsonwebtoken_1.default.sign(data, PRIVATE_KEY, {
-        expiresIn: 60 * 60 * 24,
-    });
+    return await jsonwebtoken_1.default.sign(data, PRIVATE_KEY);
 };
 exports.signToken = signToken;
