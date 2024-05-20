@@ -25,6 +25,9 @@ const Usuarios = db_config_1.default.define("usuarios", {
         type: sequelize_1.DataTypes.STRING(45),
         allowNull: false,
     },
+    rol: {
+        type: sequelize_1.DataTypes.ENUM("admin", "repartidor"),
+    },
 });
 (0, sequelize_bcrypt_1.default)(Usuarios, {
     field: "password",

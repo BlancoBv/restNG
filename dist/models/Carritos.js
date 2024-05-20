@@ -47,5 +47,9 @@ const Carritos = db_config_1.default.define("carritos", {
         type: sequelize_1.DataTypes.INTEGER,
         allowNull: false,
     },
+    nombreCliente: {
+        type: sequelize_1.DataTypes.STRING(100),
+        allowNull: false,
+    },
 });
 exports.default = Carritos;

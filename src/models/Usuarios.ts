@@ -21,6 +21,9 @@ const Usuarios = sequelize.define("usuarios", {
     type: DataTypes.STRING(45),
     allowNull: false,
   },
+  rol: {
+    type: DataTypes.ENUM("admin", "repartidor"),
+  },
 });
 
 useBcrypt(Usuarios, {
