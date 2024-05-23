@@ -96,6 +96,9 @@ const controller = new ControllerCarritos(Carritos);
 router.get("/", (req, res) =>
   controller.obtener(req, res, {
     order: [["idcarritos", "DESC"]],
+    where: req.query.hasOwnProperty("entregados")
+      ? { entregado: Number(req.query.entregados) === 1 ? true : false }
+      : {},
   })
 );
 router.get("/obtener/:num_tel", (req, res) =>
