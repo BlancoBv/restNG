@@ -3,6 +3,7 @@ import Controller from "../controller/Controller";
 import Carritos from "../models/Carritos";
 import Productos from "../models/Productos";
 import { verifyAuth } from "../middleware/auth";
+import whatsappApi from "../utils/whatsappAPI";
 
 const router = Router();
 
@@ -47,6 +48,14 @@ class ControllerCarritos extends Controller {
         productos: JSON.stringify(body.productos),
       });
 
+      await whatsappApi(
+        `Orden: ${response.dataValues.idcarritos}\n
+        Nombre del cliente: ${body.nombreCliente}\n
+        Num. de telefono: ${body.num_tel}\n
+        ${body.productos
+          .map((el: any) => `${el.length} x ${el[0].nombre}`)
+          .join("\n")}`
+      );
       return res.status(200).json({ success: true, response });
     } catch (error) {
       return res.status(403).json({ success: false, error });
